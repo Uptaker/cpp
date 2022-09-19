@@ -9,6 +9,12 @@ using namespace std;
     n3  A  -  K         false
     ..
     (diodeAmount)
+
+        m1 m2 m3... (outputAmount)
+    n1  A  K  -         true
+    n2  A  -  K         true
+    n3  -  A  K         true
+    n4  -  K  A         true  
 */
 
 int main(void) {
@@ -40,7 +46,6 @@ int main(void) {
         if (aIndex + 1 == kIndex) valid = true;
         cout << (valid ? "JAH" : "EI") << endl;
     }
-
 }
 
 /*
@@ -53,8 +58,6 @@ Väljund
 JAH
 JAH
 EI
-
-
 
 Sisend
 3 4
