@@ -19,7 +19,7 @@ struct Ray {
 long boxAmount;
 double answer = 0;
 
-double PI = atan(1)*4;
+double PI = 3.14159265358979323846;
 
 
 void solve(struct Box boxes[], long amount) {
@@ -29,7 +29,6 @@ void solve(struct Box boxes[], long amount) {
     for (int i = 0; i < amount; i++) {
         int x = boxes[i].x;
         int y = boxes[i].y;
-        // struct Ray rays[amount * 2];
 
         int leftMostX = y >= 0 ? x : x + 1;
         int leftMostY = x >= 0 ? y + 1 : y;
@@ -41,14 +40,8 @@ void solve(struct Box boxes[], long amount) {
         double rightAngle = atan2(rightMostY, rightMostX) / 2 / PI;
         if (rightAngle <= 0) rightAngle += 1;
 
-        // rays.at(i).angle = leftAngle;
-        // rays.at(i).value = 1;
-
         rays.push_back({leftAngle, 1});
         rays.push_back({rightAngle, -1});
-
-        // rays.at(i + 1).angle = rightAngle;
-        // rays.at(i + 1).value = -1;
     }
 
         std::sort(std::begin(rays), std::end(rays), [](const Ray &a, const Ray &b) {
