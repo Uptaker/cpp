@@ -11,6 +11,16 @@
         "utility": "cpp",
         "vector": "cpp",
         "set": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "string_view": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "regex": "cpp",
+        "valarray": "cpp"
     }
 }

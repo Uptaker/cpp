@@ -1,7 +1,5 @@
 #include <iostream>
-#include <algorithm>
-#include <cstring>
-#include <vector>
+#include <string>
 #include <map>
 
 using namespace std;
@@ -10,18 +8,38 @@ enum Task {
     FLIP, FRONT, BACK, RED, GREEN, BLUE
 };
 
-vector <char> shirts;
+void colorCounter(int start, int end, char *arr, char color, int size) {
+    start = start - 1;
+    end = end - 1;
+    int count = 0;
+    for (int i = start; i <= end; i++) {
+        char col = arr[i];
+        if (arr[i] == color) count++;
+    }
+    cout << count << endl;
+}
 
-void colorCounter(int shirtL, int shirtR, char color) {
-	cout << (std::count (shirts.begin() + shirtL - 1, shirts.begin() + shirtR, color)) << endl;
+void flip(int shirtL, int shirtR, char *arr, int size) {
+    int start = shirtL - 1;
+    int end = shirtR - 1;
+ 
+    for (int i = 0; i < (size - (shirtR - shirtL - 2)) / 2; i++) {
+        int temp = arr[start + i];
+        arr[start + i] = arr[end - i];
+        arr[end - i] = temp;
+    }
+}
+
+constexpr int getAmount(int amount) {
+  return amount;
 }
 	
 int main(void) {
     int shirtAmount, queryAmount;
 	cin >> shirtAmount >> queryAmount;
 
-    char shirtInitialOrder[shirtAmount];
-    cin >> shirtInitialOrder;
+    char shirts[shirtAmount];
+    cin >> shirts;
 
     // would be cool to have something like a map of <string, function()>.. if I could figure it out
     map<string, Task> mappedTask = {
@@ -32,11 +50,6 @@ int main(void) {
         {"ROHELISI", GREEN},
         {"SINISEID", BLUE},
     };
-
-    
-	for (int i = 0; i < shirtAmount; i++){
-		shirts.push_back(shirtInitialOrder[i]);
-	}
     
     for (int i = 0; i < queryAmount; i++) {
     	string command;
@@ -44,24 +57,42 @@ int main(void) {
     	int shirtR;
 		cin >> command  >> shirtL >> shirtR;
 
+
         switch(mappedTask[command]) {
             case FLIP:
-                reverse(shirts.begin() + shirtL - 1, shirts.begin() + shirtR);
+                flip(shirtL, shirtR, shirts, shirtAmount);
+
                 break;
             case FRONT:
-               rotate(shirts.rbegin() + (shirtAmount - (shirtR)), shirts.rbegin() + (shirtAmount - (shirtL - 1)), shirts.rend());
+                for (int i = 0; i < shirtAmount; i++) {
+                    int start = shirtL - 1;
+                    int end = shirtR - 1;
+                    char temp = shirts[i];
+                    shirts[i] = shirts[start + i];
+                    shirts[start + i] = temp;
+                    if (i == (end - start)) break;
+
+                }
                 break;
             case BACK:
-                rotate(shirts.begin() + shirtL - 1, shirts.begin() + shirtR, shirts.end());
+                for (int i = 0; i < shirtAmount; i++) {
+                    int start = shirtL - 1;
+                    int end = shirtR - 1;
+                    char temp = shirts[shirtAmount - 1 - i];
+                    shirts[shirtAmount - 1 - i] = shirts[start + i];
+                    shirts[start + i] = temp;
+                    if (i == (end - start)) break;
+                }
+                flip(shirtL, shirtR, shirts, shirtAmount);
                 break;
             case RED:
-                colorCounter(shirtL, shirtR, 'P');
+                colorCounter(shirtL, shirtR, shirts, 'P', shirtAmount);
                 break;
             case GREEN:
-                colorCounter(shirtL, shirtR, 'R');
+                colorCounter(shirtL, shirtR, shirts, 'R', shirtAmount);
                 break;
             case BLUE:
-                colorCounter(shirtL, shirtR, 'S');
+                colorCounter(shirtL, shirtR, shirts, 'B', shirtAmount);
                 break;
         };
     }
