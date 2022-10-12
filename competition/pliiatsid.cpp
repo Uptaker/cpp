@@ -18,8 +18,7 @@ vector<tuple<int, int>> test(char pencilsasChar[], char smaller){
 	vector<tuple<int, int> > moves;
 	for (int i = 0; i < pencils; i++) {
 		if(pencilsasChar[i] == smaller){
-			if (prev != -1) continue;
-			else if (prev == -1) start = i + 1;	
+			if (prev == -1) start = i + 1;	
 			prev = i;
 		}
 		else if (pencilsasChar[i]!=smaller){
@@ -73,8 +72,6 @@ int main(void) {
 		vector<tuple<int, int> > moves2;
 		moves1 = test(pencilsAsChar,'t');
 		moves2 = test(pencilsAsChar,'n');
-		int yks= moves1.size();
-		int kaks=moves2.size();
 		if (moves1.size() > moves2.size()) moves = moves2;
 		else if(moves2.size() >= moves1.size()) moves = moves1;
 	}	
