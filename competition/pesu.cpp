@@ -19,6 +19,7 @@ void colorCounter(int shirtL, int shirtR, char color) {
 int main(void) {
     int shirtAmount, queryAmount;
 	cin >> shirtAmount >> queryAmount;
+
     char shirtInitialOrder[shirtAmount];
     cin >> shirtInitialOrder;
 
@@ -31,7 +32,7 @@ int main(void) {
         {"ROHELISI", GREEN},
         {"SINISEID", BLUE},
     };
-    
+
     
 	for (int i = 0; i < shirtAmount; i++){
 		shirts.push_back(shirtInitialOrder[i]);
@@ -48,10 +49,10 @@ int main(void) {
                 reverse(shirts.begin() + shirtL - 1, shirts.begin() + shirtR);
                 break;
             case FRONT:
-                rotate(shirts.rbegin() + (shirtAmount - shirtR), shirts.rbegin() + (shirtAmount - shirtL - 1), shirts.rend());;
+               rotate(shirts.rbegin() + (shirtAmount - (shirtR)), shirts.rbegin() + (shirtAmount - (shirtL - 1)), shirts.rend());
                 break;
             case BACK:
-                rotate(shirts.begin() + shirtL - 1, shirts.begin() + shirtR, shirts.end());	;
+                rotate(shirts.begin() + shirtL - 1, shirts.begin() + shirtR, shirts.end());
                 break;
             case RED:
                 colorCounter(shirtL, shirtR, 'P');
@@ -63,9 +64,5 @@ int main(void) {
                 colorCounter(shirtL, shirtR, 'S');
                 break;
         };
-	}
-    
-
-    
-    
+    }
 }
