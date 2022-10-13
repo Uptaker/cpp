@@ -18,11 +18,6 @@ void colorCounter(int start, int end, char *arr, char color, int size) {
 }
 
 void flip(int start, int end, char *arr) {
-    // for (int i = 0; i < (end - start + 1) / 2; i++) {
-    //     int temp = arr[start + i];
-    //     arr[start + i] = arr[end - i];
-    //     arr[end - i] = temp;
-    // }
     for (int low = start, high = end; low < high; low++, high--) {
         int temp = arr[low];
         arr[low] = arr[high];
@@ -90,18 +85,13 @@ int main(void) {
                     shirts[i] = shirts[start + i];
                     shirts[start + i] = temp;
                 }
-                // shift_left(shirts, shirtAmount, start);
                 break;
             case BACK:
                 for (int i = 0; i < end - start + 1; i++) {
-                    // char temp = shirts[shirtAmount - 1 - i];
-                    // shirts[shirtAmount - 1 - i] = shirts[start + i];
-                    // shirts[start + i] = temp;
                     char temp = shirts[start + i];
                     shirts[start + i] = shirts[start + i + (shirtAmount - shirtR)];
                     shirts[start + i + (shirtAmount - shirtR)] = temp;
                 }
-                // shift_right(shirts, shirtAmount, shirtAmount - shirtR);
                 break;
             case RED:
                 colorCounter(start, end, shirts, 'P', shirtAmount);
