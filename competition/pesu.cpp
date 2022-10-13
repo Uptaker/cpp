@@ -9,8 +9,6 @@ enum Task {
 };
 
 void colorCounter(int start, int end, char *arr, char color, int size) {
-    start = start - 1;
-    end = end - 1;
     int count = 0;
     for (int i = start; i <= end; i++) {
         char col = arr[i];
@@ -19,19 +17,42 @@ void colorCounter(int start, int end, char *arr, char color, int size) {
     cout << count << endl;
 }
 
-void flip(int shirtL, int shirtR, char *arr, int size) {
-    int start = shirtL - 1;
-    int end = shirtR - 1;
- 
-    for (int i = 0; i < (size - (shirtR - shirtL - 2)) / 2; i++) {
-        int temp = arr[start + i];
-        arr[start + i] = arr[end - i];
-        arr[end - i] = temp;
+void flip(int start, int end, char *arr) {
+    // for (int i = 0; i < (end - start + 1) / 2; i++) {
+    //     int temp = arr[start + i];
+    //     arr[start + i] = arr[end - i];
+    //     arr[end - i] = temp;
+    // }
+    for (int low = start, high = end; low < high; low++, high--) {
+        int temp = arr[low];
+        arr[low] = arr[high];
+        arr[high] = temp;
     }
 }
 
-constexpr int getAmount(int amount) {
-  return amount;
+void shift_left(char arr[], int size, int numTimes) {
+    while (numTimes) {
+        char temp = arr[0];
+        arr[size - 1] = temp;
+        for (int i = 0; i < (size - 1); i++) {
+            arr[i] = arr[i + 1];
+        }
+        arr[size - 1] = temp;
+        numTimes--;
+    }
+
+}
+
+void shift_right(char arr[], int size, int numTimes) {
+    while (numTimes) {
+        char temp = arr[size - 1];
+        arr[size - 1] = temp;
+        for (int i = size - 1; i > 0; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = temp;
+        numTimes--;
+    }
 }
 	
 int main(void) {
@@ -51,48 +72,45 @@ int main(void) {
         {"SINISEID", BLUE},
     };
     
-    for (int i = 0; i < queryAmount; i++) {
+    for (int j = 0; j < queryAmount; j++) {
     	string command;
-    	int shirtL;
-    	int shirtR;
+    	int shirtL, shirtR, start, end;
 		cin >> command  >> shirtL >> shirtR;
+        start = shirtL - 1;
+        end = shirtR - 1;
 
 
         switch(mappedTask[command]) {
             case FLIP:
-                flip(shirtL, shirtR, shirts, shirtAmount);
-
+                flip(start, end, shirts);
                 break;
             case FRONT:
-                for (int i = 0; i < shirtAmount; i++) {
-                    int start = shirtL - 1;
-                    int end = shirtR - 1;
+                for (int i = 0; i < end - start + 1; i++) {
                     char temp = shirts[i];
                     shirts[i] = shirts[start + i];
                     shirts[start + i] = temp;
-                    if (i == (end - start)) break;
-
                 }
+                // shift_left(shirts, shirtAmount, start);
                 break;
             case BACK:
-                for (int i = 0; i < shirtAmount; i++) {
-                    int start = shirtL - 1;
-                    int end = shirtR - 1;
-                    char temp = shirts[shirtAmount - 1 - i];
-                    shirts[shirtAmount - 1 - i] = shirts[start + i];
-                    shirts[start + i] = temp;
-                    if (i == (end - start)) break;
+                for (int i = 0; i < end - start + 1; i++) {
+                    // char temp = shirts[shirtAmount - 1 - i];
+                    // shirts[shirtAmount - 1 - i] = shirts[start + i];
+                    // shirts[start + i] = temp;
+                    char temp = shirts[start + i];
+                    shirts[start + i] = shirts[start + i + (shirtAmount - shirtR)];
+                    shirts[start + i + (shirtAmount - shirtR)] = temp;
                 }
-                flip(shirtL, shirtR, shirts, shirtAmount);
+                // shift_right(shirts, shirtAmount, shirtAmount - shirtR);
                 break;
             case RED:
-                colorCounter(shirtL, shirtR, shirts, 'P', shirtAmount);
+                colorCounter(start, end, shirts, 'P', shirtAmount);
                 break;
             case GREEN:
-                colorCounter(shirtL, shirtR, shirts, 'R', shirtAmount);
+                colorCounter(start, end, shirts, 'R', shirtAmount);
                 break;
             case BLUE:
-                colorCounter(shirtL, shirtR, shirts, 'B', shirtAmount);
+                colorCounter(start, end, shirts, 'S', shirtAmount);
                 break;
         };
     }
