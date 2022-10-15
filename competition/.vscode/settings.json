@@ -30,6 +30,7 @@
         "sstream": "cpp",
         "streambuf": "cpp",
         "system_error": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "tuple": "cpp"
     }
 }
