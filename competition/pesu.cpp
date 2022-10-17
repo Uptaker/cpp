@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <algorithm>
-#include <iterator>
-#include <array>
 
 using namespace std;
 
@@ -11,87 +8,78 @@ enum Task {
     FLIP, FRONT, BACK, RED, GREEN, BLUE
 };
 
-void colorCounter(int start, int end, char *arr, char color, int size) {
-    start = start - 1;
-    end = end - 1;
+map<string, Task> mappedTask = {
+    {"POORA", FLIP},
+    {"ETTE", FRONT},
+    {"TAHA", BACK},
+    {"PUNASEID", RED},
+    {"ROHELISI", GREEN},
+    {"SINISEID", BLUE},
+};
+
+int shirtAmount, queryAmount, startAt, endAt, i;
+
+void colorCounter(char *arr, char color) {
     int count = 0;
-    for (int i = start; i <= end; i++) {
-        char col = arr[i];
+    for (int i = startAt; i < endAt + 1; i++) {
         if (arr[i] == color) count++;
     }
     cout << count << endl;
 }
 
-void flip(int shirtL, int shirtR, char *arr, int size) {
-    int start = shirtL - 1;
-    int end = shirtR - 1;
- 
-    for (int i = 0; i < (size - (shirtR - shirtL - 2)) / 2; i++) {
-        int temp = arr[start + i];
-        arr[start + i] = arr[end - i];
-        arr[end - i] = temp;
+void flip(char *arr) {
+    char temp;
+    for (int low = startAt, high = endAt; low < high; low++, high--) {
+        temp = arr[low];
+        arr[low] = arr[high];
+        arr[high] = temp;
     }
-}
-
-constexpr int getAmount(int amount) {
-  return amount;
 }
 	
 int main(void) {
-    int shirtAmount, queryAmount;
 	cin >> shirtAmount >> queryAmount;
 
     char shirts[shirtAmount];
+    
     cin >> shirts;
 
-    const int n = sizeof(shirts) / sizeof(shirts[0]);
- 
-    std::array<int, n> first, second;
-
     // would be cool to have something like a map of <string, function()>.. if I could figure it out
-    map<string, Task> mappedTask = {
-        {"POORA", FLIP},
-        {"ETTE", FRONT},
-        {"TAHA", BACK},
-        {"PUNASEID", RED},
-        {"ROHELISI", GREEN},
-        {"SINISEID", BLUE},
-    };
-    
-    for (int i = 0; i < queryAmount; i++) {
-    	string command;
-    	int shirtL;
-    	int shirtR;
-		cin >> command  >> shirtL >> shirtR;
 
+    
+    string command;
+    char temp;
+    int shirtL, shirtR;
+    for (int j = 0; j < queryAmount; j++) {
+		cin >> command  >> shirtL >> shirtR;
+        startAt = shirtL - 1;
+        endAt = shirtR - 1;
 
         switch(mappedTask[command]) {
             case FLIP:
-                flip(shirtL, shirtR, shirts, shirtAmount);
-
+                flip(shirts);
                 break;
             case FRONT:
-                for (int i = 0; i < shirtAmount; i++) {
-                    int start = shirtL - 1;
-                    int end = shirtR - 1;
-                    char temp = shirts[i];
-                    shirts[i] = shirts[start + i];
-                    shirts[start + i] = temp;
-                    if (i == (end - start)) break;
-
+                for (i = 0; i < endAt - startAt + 1; i++) {
+                    temp = shirts[i];
+                    shirts[i] = shirts[startAt + i];
+                    shirts[startAt + i] = temp;
                 }
                 break;
             case BACK:
-                std::rotate(std::begin(shirts) + shirtL - shirtR, begin(shirts) + shirtR, end(shirts));	
+                for (i = 0; i < endAt - startAt + 1; i++) {
+                    temp = shirts[startAt + i];
+                    shirts[startAt + i] = shirts[startAt + i + (shirtAmount - shirtR)];
+                    shirts[startAt + i + (shirtAmount - shirtR)] = temp;
+                }
                 break;
             case RED:
-                colorCounter(shirtL, shirtR, shirts, 'P', shirtAmount);
+                colorCounter(shirts, 'P');
                 break;
             case GREEN:
-                colorCounter(shirtL, shirtR, shirts, 'R', shirtAmount);
+                colorCounter(shirts, 'R');
                 break;
             case BLUE:
-                colorCounter(shirtL, shirtR, shirts, 'B', shirtAmount);
+                colorCounter(shirts, 'S');
                 break;
         };
     }
