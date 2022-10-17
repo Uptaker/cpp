@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <algorithm>
+#include <iterator>
+#include <array>
 
 using namespace std;
 
@@ -41,6 +44,10 @@ int main(void) {
     char shirts[shirtAmount];
     cin >> shirts;
 
+    const int n = sizeof(shirts) / sizeof(shirts[0]);
+ 
+    std::array<int, n> first, second;
+
     // would be cool to have something like a map of <string, function()>.. if I could figure it out
     map<string, Task> mappedTask = {
         {"POORA", FLIP},
@@ -75,15 +82,7 @@ int main(void) {
                 }
                 break;
             case BACK:
-                for (int i = 0; i < shirtAmount; i++) {
-                    int start = shirtL - 1;
-                    int end = shirtR - 1;
-                    char temp = shirts[shirtAmount - 1 - i];
-                    shirts[shirtAmount - 1 - i] = shirts[start + i];
-                    shirts[start + i] = temp;
-                    if (i == (end - start)) break;
-                }
-                flip(shirtL, shirtR, shirts, shirtAmount);
+                std::rotate(std::begin(shirts) + shirtL - shirtR, begin(shirts) + shirtR, end(shirts));	
                 break;
             case RED:
                 colorCounter(shirtL, shirtR, shirts, 'P', shirtAmount);
