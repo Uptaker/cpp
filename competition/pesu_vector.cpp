@@ -23,7 +23,6 @@ int main(void) {
     char shirtInitialOrder[shirtAmount];
     cin >> shirtInitialOrder;
 
-    // would be cool to have something like a map of <string, function()>.. if I could figure it out
     map<string, Task> mappedTask = {
         {"POORA", FLIP},
         {"ETTE", FRONT},
