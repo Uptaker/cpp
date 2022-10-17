@@ -16,11 +16,10 @@ int main(void)
 	for (int i = 0; i < opAmount; i++) cin >> operation[i] >> numbers[i];
 
 	int place, num1, num2;
-	for (int i = 0; i < changeAmount; i++)
-	{
+	for (int i = 0; i < changeAmount; i++) {
 		cin >> place >> operation[place - 1] >> numbers[place - 1];
 		num1 = 0;
-		for (int i = 0; i < opAmount; i++) { 
+		for (int i = 0; i < opAmount; i++) {
 			string op = operation[i];
 			int num2 = numbers[i];
 

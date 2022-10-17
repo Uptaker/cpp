@@ -47,7 +47,7 @@ int main(void) {
             continue;
         }
 
-        // calculate paths
+        // otherwise, use the highest possible dice
         if (cantUse.count(sum + 6) == 0 && sum + 6 <= squares) bestStep = 6;
         else if (cantUse.count(sum + 5) == 0 && sum + 5 <= squares) bestStep = 5;
         else if (cantUse.count(sum + 4) == 0 && sum + 4 <= squares) bestStep =  4;
