@@ -21,6 +21,12 @@
 
     # Lisa süsteemile juurde klass - ruumi seinad, seina paksus ja materjal:
     Arvutage 7x8x2m 20cm palkseina ja põrandate 1 kraadi jagu soojendamiseks kuluv energia
+
+    männi tihedus: 500 kg/m3
+    puidi erisoojus: 1760 J/(kg*K)
+    pindala ja ruumala: 8*7*2 + 2*14 + 8*2 = 172m2 ~= 37m3
+    kogus kg: 37 * 500 = 18500
+    3 1500 000 J ühe kraadi kohta
 */
 #include <iostream>
 
@@ -87,14 +93,26 @@ class AirTemp {
     double getC() {
         return temp;
     }
+};
 
+class HeatSystem {
+    int paksus;
+    string materjal;
+    int seinad;
+
+    public:
+    HeatSystem(int paksus, int seinad, string materjal) {
+        this->materjal = materjal;
+        this->paksus = paksus;
+        this->seinad = seinad;
+    }
 };
 
 int main(void) {
     AirTemp air(7, 8, 2, 20);
     Radiator r1(10, 1000, 20);
 
-    for (int i = 0; i < 3600; i++) {
+    for (int i = 0; i < 100; i++) {
         if (i < 1800) r1.heatUp(1);
 
         double j = r1.harmoniseTemp(air.getC());
