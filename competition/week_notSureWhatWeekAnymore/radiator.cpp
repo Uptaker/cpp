@@ -6,19 +6,15 @@
 
 /*
     Leia radiaatori temp 1 minuti pärast kui soojuskadusid ei arvestata
-        int radiatorKG = 10;
-        int erisoojusJ = 412;
-        int voimsusKW = 1;
-        int algTemperatuurC = 20;
+        radiatorKG = 10;
+        erisoojusJ = 412;
+        voimsusKW = 1;
+        algTemperatuurC = 20;
 
     412 * 10 = 4120 J/C
-
     1W = 1 J/s
-
     1 * 6- * 1000 = 60000J
-
     60000 / 4120 = 14.56
-
     20 + 14.56 ~= 35
 
     Koostage radiaatori klass. Andke ette mass, võimsus ja algtemperatuur.
@@ -40,8 +36,6 @@
 
     Lisa radiaatorile käsklus temperatuuri ühtlustumiseks - parameetriteks etteantud temperatuur ja sekundite arv
 */
-
-using namespace std;
 
 class Radiator {
     const double tkoef = 4.5;
@@ -84,7 +78,7 @@ class Radiator {
 
     // Funktsioon soovitud arvu sekundite jagu ühtlustamiseks
     // Tagastab eraldunud soojushulga (wtf)
-    
+
 };
 
 int main(void) {
