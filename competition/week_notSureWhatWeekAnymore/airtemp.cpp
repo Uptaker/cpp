@@ -11,17 +11,60 @@
     144.5 * 1012 ~= 15000 J/K
     60000 J/15000(J/K) ~= 0.4 K
 
-    Koostage klass ruumi õhu tarbeks - pikkus, laius, kõrgus, algtemp
+    # Koostage klass ruumi õhu tarbeks - pikkus, laius, kõrgus, algtemp:
     Juurde käsklus džaulide lisamiseks - igal korral arvutatakse uus temperatuur
 
-    Koosta süsteem radiaatorist ja ruumi õhust
+    # Koosta süsteem radiaatorist ja ruumi õhust:
     Lülita 10 kg 1kW radiaator kümneks minutiks sisse
     Arvuta temperatuure iga sekundi tagant
-    kuva radiaatori ja õhu temperatuuri iga minuti tagant 20 minuti jooksul
+    Kuva radiaatori ja õhu temperatuuri iga minuti tagant 20 minuti jooksul
+
+    # Lisa süsteemile juurde klass - ruumi seinad, seina paksus ja materjal:
+    Arvutage 7x8x2m 20cm palkseina ja põrandate 1 kraadi jagu soojendamiseks kuluv energia
 */
 #include <iostream>
 
 using namespace std;
+
+class Radiator {
+    const double tkoef = 4.5;
+    double powerP, tempC, algtempC, erisoojus, pindala;
+
+    public:
+    Radiator(double algtempC, double powerP, double tempC, double erisoojus = 412, double pindala = 1) {
+        this->algtempC = algtempC;
+        (*this).tempC = tempC;
+        this->powerP = powerP;
+        this->erisoojus = erisoojus;
+        this->pindala = pindala;
+    }
+
+    double getTempC() {
+        return tempC;
+    }
+
+    void heatUp(int seconds) {
+        double j = seconds * powerP;
+        double deltaT = j / (algtempC * erisoojus);
+        tempC += deltaT;
+    }
+
+    double harmoniseTemp(double goalTemp) {
+        double outerDeltaT = goalTemp - tempC;
+        double joules =  tkoef * outerDeltaT * pindala;
+        double innerDeltaT = joules / (algtempC * erisoojus);
+        tempC += innerDeltaT;
+        return -joules;
+    }
+
+    double harmoniseTemp(double goalTemp, int seconds) {
+        double jouleSum = 0;
+        for (int i = 0; i < seconds; i++) {
+            jouleSum+= harmoniseTemp(goalTemp);
+        }
+        return jouleSum;
+    }
+};
 
 class AirTemp {
     double area, temp;
@@ -48,7 +91,15 @@ class AirTemp {
 };
 
 int main(void) {
-    AirTemp at1(7, 8, 2, 20);
-    at1.addHeat(60000);
-    cout << at1.getC() << endl;
+    AirTemp air(7, 8, 2, 20);
+    Radiator r1(10, 1000, 20);
+
+    for (int i = 0; i < 3600; i++) {
+        if (i < 1800) r1.heatUp(1);
+
+        double j = r1.harmoniseTemp(air.getC());
+        air.addHeat(j);
+
+        if (i % 60 == 0) cout << r1.getTempC() << " " << air.getC() << endl;
+    }
 }

@@ -59,10 +59,6 @@ class Radiator {
     void heatUp(int seconds) {
         cout << "Running for " << seconds << " seconds.." << endl;
 
-        // double joulesC = erisoojus * 10;
-        // double totalJ = 1 * seconds * 1000;
-        // double tempAfter = totalJ / joulesC + algtempC; seems to also be correct
-
         double j = seconds * powerP;
         double deltaT = j / (algtempC * erisoojus);
         tempC += deltaT;
@@ -85,10 +81,6 @@ class Radiator {
         }
         return jouleSum;
     }
-
-    // Funktsioon soovitud arvu sekundite jagu ühtlustamiseks
-    // Tagastab eraldunud soojushulga (wtf)
-
 };
 
 int main(void) {
