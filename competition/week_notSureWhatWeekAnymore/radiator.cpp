@@ -37,6 +37,8 @@
     Lisa radiaatorile käsklus temperatuuri ühtlustumiseks - parameetriteks etteantud temperatuur ja sekundite arv
 */
 
+using namespace std;
+
 class Radiator {
     const double tkoef = 4.5;
     double powerP, tempC, algtempC, erisoojus, pindala;
@@ -76,6 +78,14 @@ class Radiator {
         return -joules;
     }
 
+    double harmoniseTemp(double goalTemp, int seconds) {
+        double jouleSum = 0;
+        for (int i = 0; i < seconds; i++) {
+            jouleSum+= harmoniseTemp(goalTemp);
+        }
+        return jouleSum;
+    }
+
     // Funktsioon soovitud arvu sekundite jagu ühtlustamiseks
     // Tagastab eraldunud soojushulga (wtf)
 
@@ -90,5 +100,7 @@ int main(void) {
 
   cout << r1.getTempC() << endl;
   cout << r1.harmoniseTemp(20) << endl;
+  cout << r1.getTempC() << endl;
+  cout << r1.harmoniseTemp(20, 600) << endl;
   cout << r1.getTempC() << endl;
 }
