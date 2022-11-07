@@ -1,7 +1,7 @@
-//Toa temperatuur on 20 C
-//Välisseina mõõdud on 5x3x0.2 meetrit
+// Toa temperatuur on 20 C
+// Välisseina mõõdud on 5x3x0.2 meetrit
 //Õue temperatuur on 0 C
-//Männipalgi soojusjuhtivustegur on 0.12 W*/(m*K*) ruutmeetrisel pinnal
+// Männipalgi soojusjuhtivustegur on 0.12 W*/(m*K*) ruutmeetrisel pinnal
 
 // Leia seinast läbi minev soojustvoog vattides
 
@@ -23,7 +23,7 @@
 // Leia kogu palkmajast väljuv soojusvoog vattides, maja sisetemperatuur 20 C.
 // V: ~= 1512 W
 
-// Kütmine lõpetati. Milline oleks õhutemperatuur 1 minuti pärast, kui.. 
+// Kütmine lõpetati. Milline oleks õhutemperatuur 1 minuti pärast, kui..
 // ..samasugune soojusvoog välja jätkub.
 // *Arvestades vaid toas oleva õhu soojusenergiat
 // *Arvestades ka seintes leiduvat soojusenergiat
@@ -64,6 +64,10 @@
 // Leia ruumi sisetemperatuur etteantud minutite pärast
 // Kuva sisetemperatuuri 10 minutist vahedega
 
+// Lisa klassile käsklus poolestusaja leidmiseks (katseliselt, minuti täpsusega)
+
+// Lisa klassile käsklus küsimaks soovitud temperatuurini jahtumiseks kuluvat aega (logaritmi ja poolestusaja kokku)
+
 #include <iostream>
 
 using namespace std;
@@ -81,14 +85,14 @@ class HouseTemp {
     public:
     HouseTemp(double x, double y, double z, double thickness, double algtemp = 20, double outertemp = 0) {
         this->temp = algtemp;
-        this->volume = x*y*z;
-        this->area = 2*x*y + 2*x*z + 2*y*z;
+        this->volume = x * y * z;
+        this->area = 2 * x * y + 2 * x * z + 2 * y * z;
         this->thickness = thickness;
         this->outertemp = outertemp;
         this->airmass = volume * airDensity;
         this->woodmass = area * thickness * woodDensity;
         this->ohkjkraad = airmass * ohkErisoojus;
-        this->puitjkraad = woodmass * puitErisoojus / 2 ;// sõltub  blah blah..
+        this->puitjkraad = woodmass * puitErisoojus / 2; // sõltub  blah blah..
         this->kokkujkraad = ohkjkraad + puitjkraad;
     }
     double soojusvoog() {
@@ -100,13 +104,35 @@ class HouseTemp {
     }
 
     void jahtu(int minuteid) {
-        for (int i = 0; i< minuteid; i++) {
+        for (int i = 0; i < minuteid; i++) {
             arvutaJahtumisMinut();
         }
     }
 
+    // minutes
+    int findTimeFor(int temperature) {
+        int i = 0;
+        while (getTemp() > 10) {
+            i++;
+            jahtu(1);
+        }
+        cout << i << endl;
+        return i;
+    }
+
     double getTemp() {
         return temp;
+    }
+
+    int calculateTimeFor(int temperature) {
+    // where to get 28.3?
+    // 28.3 = mitu tundi läheb (läbi katselise tee)
+    // 20/2^(x/28.3) = 7
+    // 20/7 = 2^(x/28.3)
+    // y = x/28.3
+    // 20/7 = 2^y
+    // y = ln(20/7) / ln(2)
+    // x = y * 28.3
     }
 };
 
@@ -124,7 +150,7 @@ int main(void) {
     // }
     int i = 0;
 
-    // Poolestusaeg (katseliselt) 1700 x 60 = 102 000 
+    // Poolestusaeg (katseliselt) 1700 x 60 = 102 000
     // Temperatuur pärast 100 tundi
     // while (ht1.getTemp() > 10) {
     //     i++;
@@ -134,16 +160,24 @@ int main(void) {
 
     // Viie kraadini katseliselt:
     // while (ht1.getTemp() > 5) {
-        // i++;
-        // ht1.jahtu(1);
-        // cout << "Viie kraadini " << i << endl;
+    // i++;
+    // ht1.jahtu(1);
+    // cout << "Viie kraadini " << i << endl;
     // }
 
+    ht1.findTimeFor(10);
+
+    // 28.3 = mitu tundi läheb (läbi katselise tee)
+    // 20/2^(x/28.3) = 7
+    // 20/7 = 2^(x/28.3)
+    // y = x/28.3
+    // 20/7 = 2^y
+    // y = ln(20/7) / ln(2)
+    // x = y * 28.3
+
     // Pärast 100 tundi
-    ht1.jahtu(6000);
-    cout << ht1.getTemp() << endl;
+    // ht1.jahtu(6000);
+    // cout << ht1.getTemp() << endl;
 
     // Arvuta viienda kraadini
-
-
 }
