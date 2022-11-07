@@ -99,16 +99,6 @@ class HouseTemp {
         temp -= soojusvoog() * 60 / kokkujkraad;
     }
 
-    void coolFor(int minutes) {
-        double airMass = area * airDensity;
-        int joules = airMass * temp;
-
-// kui palju energiat selle aja jooksul ruumis lahkub
-// J/min = 1512 * 60 = 90 720 J
-// Järgi jääb: 2 320 000 - 90 720 = 2 229 280
-// 2 229 280 / 1000 / 116 ~= 19.2
-    }
-
     void jahtu(int minuteid) {
         for (int i = 0; i< minuteid; i++) {
             arvutaJahtumisMinut();
@@ -121,10 +111,39 @@ class HouseTemp {
 };
 
 int main(void) {
+    // Something's wrong :c
     HouseTemp ht1(5, 6, 3, 0.2, 20, 0);
-    cout << ht1.soojusvoog() << endl;
-    ht1.arvutaJahtumisMinut();
+    // cout << ht1.soojusvoog() << endl;
+    // ht1.arvutaJahtumisMinut();
+    // cout << ht1.getTemp() << endl;
+    // ht1.jahtu(10);
+    // cout << ht1.getTemp() << endl;
+    // for (int i = 0; i < 24; i++) {
+    //     ht1.jahtu(60);
+    //     cout << ht1.getTemp() << endl;
+    // }
+    int i = 0;
+
+    // Poolestusaeg (katseliselt) 1700 x 60 = 102 000 
+    // Temperatuur pärast 100 tundi
+    // while (ht1.getTemp() > 10) {
+    //     i++;
+    //     ht1.jahtu(1);
+    //     cout << i << endl;
+    // }
+
+    // Viie kraadini katseliselt:
+    // while (ht1.getTemp() > 5) {
+        // i++;
+        // ht1.jahtu(1);
+        // cout << "Viie kraadini " << i << endl;
+    // }
+
+    // Pärast 100 tundi
+    ht1.jahtu(6000);
     cout << ht1.getTemp() << endl;
-    ht1.jahtu(10);
-    cout << ht1.getTemp() << endl;
+
+    // Arvuta viienda kraadini
+
+
 }
