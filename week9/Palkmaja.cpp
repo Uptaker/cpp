@@ -34,13 +34,14 @@
 
 #include <vector>
 #include <iostream>
+#include <utility>
 
 using namespace std;
 
 class Ruum {
     double maht; // m3
     double temp = 20;
-    vector<pair<Ruum, int>> yhendused;
+    vector<pair<Ruum*, double>> seosed;
 
     const int ohkerisoojus = 1000;
     const int puiterisoojus = 1500;
@@ -63,15 +64,54 @@ class Ruum {
         temp += joules / (ohkerisoojus * airMass);
     }
 
+    void lisaSeos(Ruum *r, double ruutmeetrid) {
+        pair<Ruum*, double> paar;
+        paar.first = r;
+        paar.second = ruutmeetrid;
+        seosed.push_back(paar);
+    }
+
+    void arvutaTemperatuuriMuutus(int sek) {
+        for (int i = 0; i < seosed.size(); i++) {
+            cout << seosed[i].first->temp << endl;
+
+            // Leiate temperatuuri vahe
+            double vahe = seosed[i].first->temp - this->temp;
+
+            // pindala ja aja järgi leiate liikuva soojushulga (kui viidatav ruum on jahedam, siis negatiivse)
+            double soojushulk = 0.6 * seosed[i].second * vahe * sek;
+
+            // arvutate ruumi uue temperatuuri
+            applyJoules(soojushulk);
+
+        }
+    }
+
     double getTemp() {
         return temp;
     }
 };
 
+class Hoone {
+    vector<Ruum*> ruumid;
+};
+
 int main(void) {
     Ruum r1(3, 3, 3);
-    Ruum r2(3, 3, 3);
+    Ruum r2(3, 3, 3, 0);
 
-    r1.applyJoules(-6480);
+    r1.lisaSeos(&r2, 9);
+    r2.lisaSeos(&r1, 9);
+
+    // r1.arvutaTemperatuuriMuutus(60);
+
+    // r1.applyJoules(-6480);
     cout << r1.getTemp() << endl;
+
+    for (int i = 0; i < 10000; i++) {
+        r1.arvutaTemperatuuriMuutus(6);
+        r2.arvutaTemperatuuriMuutus(6);
+
+        cout << r1.getTemp() << " " << r2.getTemp() << endl;
+    }
 }
