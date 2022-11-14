@@ -79,8 +79,6 @@ class Ruum {
 
     void arvutaTemperatuuriMuutus(int sek) {
         for (int i = 0; i < seosed.size(); i++) {
-            cout << seosed[i].first->temp << endl;
-
             // Leiate temperatuuri vahe
             double vahe = seosed[i].first->temp - this->temp;
 
@@ -103,21 +101,25 @@ class Hoone {
 };
 
 int main(void) {
-    Ruum r1(3, 3, 3);
+    Ruum r1(3, 3, 3, false);
     Ruum r2(3, 3, 3, 0, true);
+    Ruum ilm(10, 10, 0, 0, false);
 
     r1.lisaSeos(&r2, 9);
     r2.lisaSeos(&r1, 9);
+    r1.lisaSeos(&ilm, 45);
+    ilm.lisaSeos(&r1, 45);
+    r2.lisaSeos(&ilm, 45);
+    ilm.lisaSeos(&r2, 45);
 
     // r1.arvutaTemperatuuriMuutus(60);
 
     // r1.applyJoules(-6480);
     cout << r1.getTemp() << endl;
 
-    for (int i = 0; i < 10000; i++) {
-        r1.arvutaTemperatuuriMuutus(6);
-        r2.arvutaTemperatuuriMuutus(6);
-
-        cout << r1.getTemp() << " " << r2.getTemp() << endl;
+    for (int i = 0; i < 100; i++) {
+        r1.arvutaTemperatuuriMuutus(60);
+        r2.arvutaTemperatuuriMuutus(60);
+        cout << r1.getTemp() << " " << r2.getTemp() << " " << ilm.getTemp() << endl;
     }
 }
