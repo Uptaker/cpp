@@ -42,6 +42,7 @@ class Ruum {
     double maht; // m3
     double temp = 20;
     vector<pair<Ruum*, double>> seosed;
+    bool tempMuudetav;
 
     const int ohkerisoojus = 1000;
     const int puiterisoojus = 1500;
@@ -50,18 +51,23 @@ class Ruum {
     const double juhtivusTegur = 0.12;
 
     public:
-    Ruum(double x, double y, double z) {
+    Ruum(double x, double y, double z, bool tempMuudetav = true) {
         this->maht = x * y * z;
+        this->tempMuudetav = tempMuudetav;
     }
 
-    Ruum(double x, double y, double z, double temp) {
+    Ruum(double x, double y, double z, double temp, bool tempMuudetav = true) {
         this->maht = x * y * z;
         this->temp = temp;
+        this->tempMuudetav = tempMuudetav;
     }
 
+    // Looge uus fail, looge kolmas ruum õueks, jälgige temp muutusi kümne minuti jooksul
     void applyJoules(double joules) {
-        double airMass = maht * ohutihedus;
-        temp += joules / (ohkerisoojus * airMass);
+        if (tempMuudetav) {
+            double airMass = maht * ohutihedus;
+            temp += joules / (ohkerisoojus * airMass);
+        }
     }
 
     void lisaSeos(Ruum *r, double ruutmeetrid) {
