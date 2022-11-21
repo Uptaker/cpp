@@ -25,7 +25,7 @@
 using namespace std;
 
 const int ohkerisoojus = 1000;
-const int puiterisoojus = 1500;
+const int puiterisoojus = 1760;
 const double ohutihedus = 1.29;
 const double puidutihedus = 500;
 const double juhtivusTegur = 0.12;
@@ -50,9 +50,7 @@ class AineKogus : public Soojendatav {
     }
 
     double kysiKg() { return kg; }
-    double kysiJ() {
-        return kg * erisoojus * temp;
-    }
+    double kysiJ() { return kg * erisoojus * temp; }
 };
 
 class Komplekt: public Soojendatav {
