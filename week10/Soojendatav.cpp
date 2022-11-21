@@ -10,20 +10,13 @@
 
     - Koosta (abstraktne) ülemklass "soojendatav" käsklusega "kysiKg" kilogrammide arvu väljastamiseks
     - Loo soojendatavale alamklass AineKogus, millel väljaks koligrammide arv
-
-    const int ohkerisoojus = 1000;
-    const int puiterisoojus = 1500;
-    const double ohutihedus = 1.29;
-    const double puidutihedus = 500;
-    const double juhtivusTegur = 0.12;
-
     - Loo soojendatavale alamklass Komplekt, mille sisse saab panna teisi soojendatavaid (nii AineKogus-eid kui ka Komplekt-e). Katseta.
 
     - erisoojus * mass * absoluutne temp = jaulid
 
-    - Lisa AineKogus-klassile erisoojus ning temperatuur Kelvinites.
-    - Lisa käsklus AineKoguse eksemplaris leiduva soojusenergia koguse leidmiseks
-    - Lisa soojusenergia (J) leidmise käsklus ka Soojendatavale ning Komplektile
+    + Lisa AineKogus-klassile erisoojus ning temperatuur Kelvinites.
+    + Lisa käsklus AineKoguse eksemplaris leiduva soojusenergia koguse leidmiseks
+    + Lisa soojusenergia (J) leidmise käsklus ka Soojendatavale ning Komplektile
     - Loo käsklus Soojendatava temperatuuri leidmiseks
 */
 
@@ -31,12 +24,17 @@
 #include <vector>
 using namespace std;
 
+const int ohkerisoojus = 1000;
+const int puiterisoojus = 1500;
+const double ohutihedus = 1.29;
+const double puidutihedus = 500;
+const double juhtivusTegur = 0.12;
+
 class Soojendatav {
 
     public:
-    float dimension;
-
     virtual double kysiKg() = 0;
+    virtual double kysiJ() = 0;
 };
 
 class AineKogus : public Soojendatav {
@@ -45,11 +43,16 @@ class AineKogus : public Soojendatav {
     double temp;
 
     public:
-    AineKogus(float kg) {
+    AineKogus(double kg, int erisoojus, double temp) {
         this->kg = kg;
+        this->erisoojus = erisoojus;
+        this->temp = temp;
     }
 
     double kysiKg() { return kg; }
+    double kysiJ() {
+        return kg * erisoojus * temp;
+    }
 };
 
 class Komplekt: public Soojendatav {
@@ -67,29 +70,19 @@ class Komplekt: public Soojendatav {
         }
         return sum;
     }
-};
 
-class Puit : public Soojendatav {
-   int erisoojus = 1500; 
-
-   public:
-    double kysiKg() {
-        return dimension * dimension;
-    }
-};
-
-class Ohk : public Soojendatav {
-   int erisoojus = 1000; 
-
-   public:
-    double kysiKg() {
-        return 3.14 * dimension * dimension;
+    double kysiJ() {
+        double sum = 0;
+        for (int i = 0; i < detailid.size(); i++) {
+            sum += detailid[i]->kysiJ();
+        }
+        return sum;
     }
 };
 
 int main() {
-    AineKogus taburett1(1.5);
-    AineKogus taburett2(2.5);
+    AineKogus taburett1(1.5, puiterisoojus, 293.15);
+    AineKogus taburett2(2.5, puiterisoojus, 293.15);
     Komplekt k1;
     Komplekt k2;
     k1.lisa(&taburett1);
@@ -99,8 +92,8 @@ int main() {
     k2.lisa(&k1);
     cout << k2.kysiKg() << endl;
 
-    AineKogus tool1(3);
-    AineKogus tool2(5);
+    AineKogus tool1(3, puiterisoojus, 293.15);
+    AineKogus tool2(5, puiterisoojus, 293.15);
 
     Komplekt toolid;
     toolid.lisa(&tool1);
@@ -112,6 +105,7 @@ int main() {
 
     cout << k1.kysiKg() << endl;
     cout << moobel.kysiKg() << endl;
+    cout << moobel.kysiJ() << endl;
 
 
     return 0;
