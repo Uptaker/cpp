@@ -101,18 +101,21 @@ int main() {
 
     AineKogus taburett1(1.5);
     AineKogus taburett2(2.5);
-    Komplekt k1;asd
-    k1.lisa(&taburett1);asda
-
+    Komplekt k1;
+    Komplekt k2;
+    k1.lisa(&taburett1);
     k1.lisa(&taburett2);
-    k1.lisa(&k1);
     cout << k1.kysiKg() << endl;
+    k2.lisa(&taburett1);
+    k2.lisa(&k1);
+    cout << k2.kysiKg() << endl;
+
 
     // Soojendatav ese = taburett;
     // cout << ese.kysiKg() << endl;
 
-    Soojendatav *ese = &taburett1;
-    cout << ese->kysiKg() << endl;
+    // Soojendatav *ese = &taburett1;
+    // cout << ese->kysiKg() << endl;
 
     return 0;
 }
