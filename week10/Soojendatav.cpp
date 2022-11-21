@@ -20,19 +20,18 @@
     - Loo soojendatavale alamklass Komplekt, mille sisse saab panna teisi soojendatavaid (nii AineKogus-eid kui ka Komplekt-e). Katseta.
 
     - erisoojus * mass * absoluutne temp = jaulid
+
+    - Lisa AineKogus-klassile erisoojus ning temperatuur Kelvinites.
+    - Lisa käsklus AineKoguse eksemplaris leiduva soojusenergia koguse leidmiseks
+    - Lisa soojusenergia (J) leidmise käsklus ka Soojendatavale ning Komplektile
+    - Loo käsklus Soojendatava temperatuuri leidmiseks
 */
-
-
-
-// C++ program to calculate the area of a square and a circle
 
 #include <iostream>
 #include <vector>
 using namespace std;
 
 class Soojendatav {
-    int erisoojus;
-    int temperatuur; 
 
     public:
     float dimension;
@@ -42,6 +41,8 @@ class Soojendatav {
 
 class AineKogus : public Soojendatav {
     double kg;
+    int erisoojus;
+    double temp;
 
     public:
     AineKogus(float kg) {
@@ -56,6 +57,7 @@ class Komplekt: public Soojendatav {
 
     public:
     void lisa(Soojendatav *s) {
+        if (s == this) cout << "ise" << endl;
         detailid.push_back(s);
     }
     double kysiKg() {
@@ -96,6 +98,21 @@ int main() {
     k2.lisa(&taburett1);
     k2.lisa(&k1);
     cout << k2.kysiKg() << endl;
+
+    AineKogus tool1(3);
+    AineKogus tool2(5);
+
+    Komplekt toolid;
+    toolid.lisa(&tool1);
+    toolid.lisa(&tool2);
+
+    Komplekt moobel;
+    moobel.lisa(&k1);
+    moobel.lisa(&toolid);
+
+    cout << k1.kysiKg() << endl;
+    cout << moobel.kysiKg() << endl;
+
 
     return 0;
 }
