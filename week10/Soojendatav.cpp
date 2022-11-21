@@ -51,14 +51,17 @@ class AineKogus : public Soojendatav {
     double kysiKg() { return kg; }
 };
 
-class Komplekt {
-    vector<Soojendatav*> soojendatavad;
+class Komplekt: public Soojendatav {
+    vector<Soojendatav*> detailid;
 
     public:
-    double kysiJaul() {
+    void lisa(Soojendatav *s) {
+        detailid.push_back(s);
+    }
+    double kysiKg() {
         double sum = 0;
-        for (int i = 0; i < this->soojendatavad.size(); i++) {
-            // sum += erisoojus * mass * temp;
+        for (int i = 0; i < detailid.size(); i++) {
+            sum += detailid[i]->kysiKg();
         }
         return sum;
     }
@@ -96,13 +99,19 @@ int main() {
     cout << "Area of circle: " << circle.kysiKg() << endl;
     */
 
-    AineKogus taburett(1.5);
-    cout << taburett.kysiKg() << endl;
+    AineKogus taburett1(1.5);
+    AineKogus taburett2(2.5);
+    Komplekt k1;asd
+    k1.lisa(&taburett1);asda
+
+    k1.lisa(&taburett2);
+    k1.lisa(&k1);
+    cout << k1.kysiKg() << endl;
 
     // Soojendatav ese = taburett;
     // cout << ese.kysiKg() << endl;
 
-    Soojendatav *ese = &taburett;
+    Soojendatav *ese = &taburett1;
     cout << ese->kysiKg() << endl;
 
     return 0;
