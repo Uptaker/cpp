@@ -48,8 +48,12 @@ class Soojendatav {
     public:
     virtual double kysiKg() = 0;
     virtual double kysiJ() = 0;
-    virtual double kysi1KelvinVajadus() = 0;
+    virtual double kysiJK() = 0; // J K kohta
     virtual double kysiYhtlustunudTemperatuur() = 0;
+    virtual void uusTemperatuur(double kelvinid) = 0;
+    void yhtlusta() {
+        uusTemperatuur(kysiYhtlustunudTemperatuur());
+    };
 };
 
 class AineKogus : public Soojendatav {
@@ -66,8 +70,11 @@ class AineKogus : public Soojendatav {
 
     double kysiKg() { return kg; }
     double kysiJ() { return kg * erisoojus * temp; }
-    double kysi1KelvinVajadus() { return erisoojus * kg; }
+    double kysiJK() { return erisoojus * kg; }
     double kysiYhtlustunudTemperatuur() { return temp; }
+    void uusTemperatuur(double kelvinid) {
+        temp = kelvinid;
+    }
 };
 
 class Komplekt: public Soojendatav {
@@ -94,16 +101,22 @@ class Komplekt: public Soojendatav {
         return sum;
     }
 
-    double kysi1KelvinVajadus() {
+    double kysiJK() {
         double sum = 0;
         for (int i = 0; i < detailid.size(); i++) {
-            sum += detailid[i]->kysi1KelvinVajadus();
+            sum += detailid[i]->kysiJK();
         }
         return sum;
     }
 
     double kysiYhtlustunudTemperatuur() {
-        return kysiJ() / kysi1KelvinVajadus();
+        return kysiJ() / kysiJK();
+    }
+
+    void uusTemperatuur(double kelvinid) {
+        for (int i = 0; i < detailid.size(); i++) {
+            detailid[i]->uusTemperatuur(kelvinid);
+        }
     }
 };
 
@@ -133,9 +146,13 @@ int main() {
     cout << k1.kysiKg() << endl;
     cout << moobel.kysiKg() << endl;
     cout << moobel.kysiJ() << endl;
-    cout << moobel.kysi1KelvinVajadus() << endl;
+    cout << moobel.kysiJK() << endl;
     cout << moobel.kysiYhtlustunudTemperatuur() << endl;
-
+    k1.yhtlusta();
+    cout << k1.kysiYhtlustunudTemperatuur() << endl;
+    moobel.yhtlusta();
+    cout << moobel.kysiYhtlustunudTemperatuur() << endl;
+    // Mitu komplekti ja omavahel kokku
     return 0;
 }
 
