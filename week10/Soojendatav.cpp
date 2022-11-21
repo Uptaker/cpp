@@ -27,6 +27,10 @@
 
     - Looge Soojendatavale käsklus leidmaks, mitu J tuleb komponendile anda, et selle temperatuur tõuseks ühe kraadi võrra sum(mi*ei)
     - Lisage Soojendatavale käsklus ühtlustatud temperatuuri leidmiseks
+
+    - Lisa käsklus Soojendatava detailide temperatuuride ühtlustamiseks - kõigile määratakse arvutatud temperatuur
+    - Lisa Soojendatavale käsklus džaulide lisamiseks
+    - Katseta - ühtlusta olemasolev süsteem. Lisa ühele AineKogusele 1500J. Ühtlusta süsteemi uuesti, kuva teise AineKoguse temperatuurid.
 */
 
 #include <iostream>
@@ -45,6 +49,7 @@ class Soojendatav {
     virtual double kysiKg() = 0;
     virtual double kysiJ() = 0;
     virtual double kysi1KelvinVajadus() = 0;
+    virtual double kysiYhtlustunudTemperatuur() = 0;
 };
 
 class AineKogus : public Soojendatav {
@@ -61,9 +66,8 @@ class AineKogus : public Soojendatav {
 
     double kysiKg() { return kg; }
     double kysiJ() { return kg * erisoojus * temp; }
-    double kysi1KelvinVajadus() {
-        return (kg * erisoojus * temp) / (kg * erisoojus);
-    }
+    double kysi1KelvinVajadus() { return erisoojus * kg; }
+    double kysiYhtlustunudTemperatuur() { return temp; }
 };
 
 class Komplekt: public Soojendatav {
@@ -95,7 +99,11 @@ class Komplekt: public Soojendatav {
         for (int i = 0; i < detailid.size(); i++) {
             sum += detailid[i]->kysi1KelvinVajadus();
         }
-        return sum / detailid.size();
+        return sum;
+    }
+
+    double kysiYhtlustunudTemperatuur() {
+        return kysiJ() / kysi1KelvinVajadus();
     }
 };
 
@@ -126,7 +134,7 @@ int main() {
     cout << moobel.kysiKg() << endl;
     cout << moobel.kysiJ() << endl;
     cout << moobel.kysi1KelvinVajadus() << endl;
-
+    cout << moobel.kysiYhtlustunudTemperatuur() << endl;
 
     return 0;
 }
