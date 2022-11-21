@@ -86,19 +86,6 @@ class Ohk : public Soojendatav {
 };
 
 int main() {
-    /*
-    Puit square;
-    Ohk circle;
-
-    cout << "Enter the length of the square: ";
-    square.getDimension();
-    cout << "Area of square: " << square.kysiKg() << endl;
-
-    cout << "\nEnter radius of the circle: ";
-    circle.getDimension();
-    cout << "Area of circle: " << circle.kysiKg() << endl;
-    */
-
     AineKogus taburett1(1.5);
     AineKogus taburett2(2.5);
     Komplekt k1;
@@ -109,13 +96,6 @@ int main() {
     k2.lisa(&taburett1);
     k2.lisa(&k1);
     cout << k2.kysiKg() << endl;
-
-
-    // Soojendatav ese = taburett;
-    // cout << ese.kysiKg() << endl;
-
-    // Soojendatav *ese = &taburett1;
-    // cout << ese->kysiKg() << endl;
 
     return 0;
 }
