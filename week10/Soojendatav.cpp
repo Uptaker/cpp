@@ -44,8 +44,10 @@ const double puidutihedus = 500;
 const double juhtivusTegur = 0.12;
 
 class Soojendatav {
+    string nimetus;
 
     public:
+    Soojendatav(string nimetus) { this->nimetus = nimetus; }
     virtual double kysiKg() = 0;
     virtual double kysiJ() = 0;
     virtual double kysiJK() = 0; // J K kohta
@@ -54,6 +56,9 @@ class Soojendatav {
     void yhtlusta() {
         uusTemperatuur(kysiYhtlustunudTemperatuur());
     };
+    string tekstina() {
+        return nimetus + " " + to_string(kysiKg()) + "kg";
+    }
 };
 
 class AineKogus : public Soojendatav {
@@ -62,7 +67,7 @@ class AineKogus : public Soojendatav {
     double temp;
 
     public:
-    AineKogus(double kg, int erisoojus, double temp) {
+    AineKogus(double kg, int erisoojus, double temp, string nimetus) : Soojendatav(nimetus) {
         this->kg = kg;
         this->erisoojus = erisoojus;
         this->temp = temp;
@@ -81,6 +86,7 @@ class Komplekt: public Soojendatav {
     vector<Soojendatav*> detailid;
 
     public:
+    Komplekt(string nimetus) : Soojendatav(nimetus) {}
     void lisa(Soojendatav *s) {
         if (s == this) cout << "ise" << endl;
         detailid.push_back(s);
@@ -121,10 +127,10 @@ class Komplekt: public Soojendatav {
 };
 
 int main() {
-    AineKogus taburett1(1.5, puiterisoojus, 293.15);
-    AineKogus taburett2(2.5, puiterisoojus, 293.15);
-    Komplekt k1;
-    Komplekt k2;
+    AineKogus taburett1(1.5, puiterisoojus, 293.15, "tab1");
+    AineKogus taburett2(2.5, puiterisoojus, 293.15, "tab2");
+    Komplekt k1("k1");
+    Komplekt k2("k2");
     k1.lisa(&taburett1);
     k1.lisa(&taburett2);
     cout << k1.kysiKg() << endl;
@@ -132,14 +138,14 @@ int main() {
     k2.lisa(&k1);
     cout << k2.kysiKg() << endl;
 
-    AineKogus tool1(3, puiterisoojus, 293.15);
-    AineKogus tool2(5, puiterisoojus, 293.15);
+    AineKogus tool1(3, puiterisoojus, 293.15, "tool1");
+    AineKogus tool2(5, puiterisoojus, 293.15, "tool2");
 
-    Komplekt toolid;
+    Komplekt toolid("toolid");
     toolid.lisa(&tool1);
     toolid.lisa(&tool2);
 
-    Komplekt moobel;
+    Komplekt moobel("mooblid");
     moobel.lisa(&k1);
     moobel.lisa(&toolid);
 
@@ -153,6 +159,7 @@ int main() {
     moobel.yhtlusta();
     cout << moobel.kysiYhtlustunudTemperatuur() << endl;
     // Mitu komplekti ja omavahel kokku
+    cout << moobel.tekstina() << endl;
     return 0;
 }
 
