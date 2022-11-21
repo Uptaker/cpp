@@ -53,6 +53,15 @@ class AineKogus : public Soojendatav {
 
 class Komplekt {
     vector<Soojendatav*> soojendatavad;
+
+    public:
+    double kysiJaul() {
+        double sum = 0;
+        for (int i = 0; i < this->soojendatavad.size(); i++) {
+            // sum += erisoojus * mass * temp;
+        }
+        return sum;
+    }
 };
 
 class Puit : public Soojendatav {
