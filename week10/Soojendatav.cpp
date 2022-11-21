@@ -18,6 +18,15 @@
     + Lisa käsklus AineKoguse eksemplaris leiduva soojusenergia koguse leidmiseks
     + Lisa soojusenergia (J) leidmise käsklus ka Soojendatavale ning Komplektile
     - Loo käsklus Soojendatava temperatuuri leidmiseks
+
+    m1 * e1 * t1 + m1 * e2 * t2
+
+    m = m1 + m2
+
+    (m1 * e1 * t1 + m2 * e2 * t2) / (m1 * e1 + m2 * e2)
+
+    - Looge Soojendatavale käsklus leidmaks, mitu J tuleb komponendile anda, et selle temperatuur tõuseks ühe kraadi võrra sum(mi*ei)
+    - Lisage Soojendatavale käsklus ühtlustatud temperatuuri leidmiseks
 */
 
 #include <iostream>
@@ -35,6 +44,7 @@ class Soojendatav {
     public:
     virtual double kysiKg() = 0;
     virtual double kysiJ() = 0;
+    virtual double kysi1KelvinVajadus() = 0;
 };
 
 class AineKogus : public Soojendatav {
@@ -51,6 +61,9 @@ class AineKogus : public Soojendatav {
 
     double kysiKg() { return kg; }
     double kysiJ() { return kg * erisoojus * temp; }
+    double kysi1KelvinVajadus() {
+        return (kg * erisoojus * temp) / (kg * erisoojus);
+    }
 };
 
 class Komplekt: public Soojendatav {
@@ -75,6 +88,14 @@ class Komplekt: public Soojendatav {
             sum += detailid[i]->kysiJ();
         }
         return sum;
+    }
+
+    double kysi1KelvinVajadus() {
+        double sum = 0;
+        for (int i = 0; i < detailid.size(); i++) {
+            sum += detailid[i]->kysi1KelvinVajadus();
+        }
+        return sum / detailid.size();
     }
 };
 
@@ -104,6 +125,7 @@ int main() {
     cout << k1.kysiKg() << endl;
     cout << moobel.kysiKg() << endl;
     cout << moobel.kysiJ() << endl;
+    cout << moobel.kysi1KelvinVajadus() << endl;
 
 
     return 0;
