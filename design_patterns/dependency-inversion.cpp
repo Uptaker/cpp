@@ -41,12 +41,12 @@ class VectorArvutus : public KaalumajaLiides {
 };
 
 
-class Kaalumaja {
+class Logger {
     KaalumajaLiides *arvutus;
     string aadress;
 
     public:
-    Kaalumaja(string aadress, KaalumajaLiides *kaaluja) {
+    Logger(string aadress, KaalumajaLiides *kaaluja) {
         this->aadress = aadress;
         this->arvutus = kaaluja;
     }
@@ -67,10 +67,10 @@ int main(void) {
     KaalumajaLiides *sumKaaluja = new SumArvutus();
     KaalumajaLiides *vektorKaaluja = new VectorArvutus();
 
-    Kaalumaja km1 = Kaalumaja("Aadress 1", sumKaaluja);
+    Logger km1 = Logger("Aadress 1", sumKaaluja);
     km1.weight(200);
 
-    Kaalumaja km2 = Kaalumaja("Aadress 2", vektorKaaluja);
+    Logger km2 = Logger("Aadress 2", vektorKaaluja);
     km2.weight(2500);
     km2.add(2500);
     km2.weight(0);
