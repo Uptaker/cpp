@@ -1,4 +1,3 @@
-// Toa temperatuur on 20 C
 // Välisseina mõõdud on 5x3x0.2 meetrit
 //Õue temperatuur on 0 C
 // Männipalgi soojusjuhtivustegur on 0.12 W*/(m*K*) ruutmeetrisel pinnal
@@ -7,6 +6,7 @@
 
 // k = Qd/SΔT
 
+// Toa temperatuur on 20 C
 // k on keskkonna soojusjuhtivustegur (W/(m·K)),
 // Q on ajaühikus pinda läbiv soojushulk (W),
 // S on pindala (m2),
