@@ -1,9 +1,8 @@
-// Lisa klassile käsklus küsimaks soovitud temperatuurini jahtumiseks kuluvat aega (logaritmi ja poolestusaja kokku)
-
 #include <iostream>
 #include <vector>
 #include <chrono>
 #include <ctime>
+#include <utility>
 
 using namespace std;
 
@@ -22,22 +21,23 @@ class SumArvutus : public KaalumajaLiides {
 };
 
 class VectorArvutus : public KaalumajaLiides {
-    vector<double> addedKgs;
+    vector<pair<double, time_t>> addedKgs;
 
     public:
     double weight() {
-        auto end = std::chrono::system_clock::now();
-        std::time_t time = std::chrono::system_clock::to_time_t(end);
-
-        cout << "Lisatud kell: " << time << endl;
         double sum = 0;
         for (int i = 0; i < addedKgs.size(); i++) {
-            sum += addedKgs[i];
+            sum += addedKgs[i].first;
         }
         return sum;
     }
 
-    void add(int kg) { addedKgs.push_back(kg); }
+    void add(int kg) { 
+        auto end = std::chrono::system_clock::now();
+        std::time_t time = std::chrono::system_clock::to_time_t(end);
+        addedKgs.push_back(make_pair(kg, time));
+        cout << "Lisatud " << kg << " kell: " << time << endl;
+    }
 };
 
 
