@@ -24,12 +24,6 @@ class Logger {
     }
 
 };
-    // Logger Logger::*instance = NULL;
-
-    // static Logger *Logger::getLogger() {
-    //     if (Logger::instance == NULL) Logger::instance = new Logger();
-    //     return instance;
-    // }
 
 
 int main(void) {
