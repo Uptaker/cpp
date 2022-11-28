@@ -4,6 +4,10 @@
 #include <ctime>
 #include <utility>
 
+enum LiidesType {
+    SUM, VECTOR
+};
+
 using namespace std;
 
 class KaalumajaLiides {
@@ -40,6 +44,22 @@ class VectorArvutus : public KaalumajaLiides {
     }
 };
 
+class LiidesFactory {
+    public:
+    static KaalumajaLiides* getLiides(LiidesType liides = SUM) {
+        switch (liides) {
+        case SUM:
+            return new SumArvutus();
+            break;
+        case VECTOR:
+            return new VectorArvutus();
+            break;
+        default:
+            return new SumArvutus();
+        }
+    }
+};
+
 
 class Kaalumaja {
     KaalumajaLiides *arvutus;
@@ -67,10 +87,10 @@ int main(void) {
     KaalumajaLiides *sumKaaluja = new SumArvutus();
     KaalumajaLiides *vektorKaaluja = new VectorArvutus();
 
-    Kaalumaja km1 = Kaalumaja("Aadress 1", sumKaaluja);
+    Kaalumaja km1 = Kaalumaja("Aadress 1", LiidesFactory::getLiides());
     km1.weight(200);
 
-    Kaalumaja km2 = Kaalumaja("Aadress 2", vektorKaaluja);
+    Kaalumaja km2 = Kaalumaja("Aadress 2", LiidesFactory::getLiides(VECTOR));
     km2.weight(2500);
     km2.add(2500);
     km2.weight(0);
