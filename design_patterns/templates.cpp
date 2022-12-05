@@ -7,6 +7,15 @@ T suurim (T a, T b) {
     return a > b ? a : b;
 }
 
+template <class T2>
+T2 suurimHoidlast(T2 *massiiv, int kogus) {
+    T2 v = massiiv[0];
+    for (int i = 1; i < kogus; i++) {
+        if (massiiv[i] > v) v = massiiv[i];
+    }
+    return v;
+}
+
 class Time {
     int hours, minutes, seconds;
 
@@ -59,9 +68,13 @@ ostream& operator<<(ostream& os, const Time& v) {
 }
 
 int main(void) {
+    double arvud[4] = {2, 9, 7, 6};
+    double a2 = suurimHoidlast(arvud, 4);
+    cout << a2 << endl;
+
     cout << suurim<int>(3, 5) << endl;
     cout << suurim<>(3, 5) << endl;
     cout << suurim(3, 5) << endl;
 
-    cout << suurim(Time(11, 12, 12), Time(11, 11, 11)) << endl;
+    cout << suurim(Time(12, 12, 12), Time(11, 11, 11)) << endl;
 }
