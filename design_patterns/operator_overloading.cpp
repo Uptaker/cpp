@@ -16,6 +16,7 @@ class Vektor {
     void paremale() { x++; }
 
     friend ostream& operator<<(ostream& os, const Vektor& v);
+
 };
 
 ostream& operator<<(ostream& os, const Vektor& v) {
