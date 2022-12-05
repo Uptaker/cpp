@@ -17,13 +17,9 @@ class Vektor {
 
     friend ostream& operator<<(ostream& os, const Vektor& v);
 
-    Vektor operator*(int arv) {
-        return Vektor(x* arv, y*arv);
-    }
+    Vektor operator*(int arv) { return Vektor(x* arv, y*arv); }
 
-    Vektor operator+(Vektor v) {
-        return Vektor(x + v.x, y + v.y);
-    }
+    Vektor operator+(Vektor v) { return Vektor(x + v.x, y + v.y); }
 
     int operator[](int koht) {
         if (koht == 1) return x;
