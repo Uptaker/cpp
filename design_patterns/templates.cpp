@@ -73,10 +73,7 @@ class Time {
     }
 
     bool operator==(Time t) {
-        if (seconds != t.seconds) return false;
-        if (minutes != t.minutes) return false;
-        if (hours != t.hours) return false;
-        return true;
+        return seconds == t.seconds && minutes == t.minutes && hours == t.hours;
     }
 
 };
