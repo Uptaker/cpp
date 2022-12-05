@@ -39,7 +39,54 @@ ostream& operator<<(ostream& os, const Vektor& v) {
     return os << "(" << v.x << "," << v.y << ")";
 }
 
+class Time {
+    int hours, minutes, seconds;
+
+    public:
+    Time(int hours, int minutes, int seconds) {
+        this->hours = hours;
+        this->minutes = minutes;
+        this->seconds = seconds;
+    }
+
+    friend ostream& operator<<(ostream& os, const Time& v);
+
+
+    Time operator++(int) {
+        seconds++;
+
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+        }
+
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+
+        if (hours >= 24) hours = 0;
+        return Time(hours, minutes, seconds);
+    }
+
+};
+
+ostream& operator<<(ostream& os, const Time& v) {
+    return os << "(" << v.hours << "," << v.minutes << "," << v.seconds << ")";
+}
+
 int main(void) {
+    Time t1(23, 59, 58);
+    cout << t1 << endl;
+
+    t1++;
+    cout << t1 << endl;
+
+    t1++;
+    cout << t1 << endl;
+
+
+
     Vektor v(70, 70);
 
     // Vektor v2 = v * 4;
