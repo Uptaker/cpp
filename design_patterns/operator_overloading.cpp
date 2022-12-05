@@ -37,8 +37,6 @@ ostream& operator<<(ostream& os, const Vektor& v) {
     return os << "(" << v.x << "," << v.y << ")";
 }
 
-
-
 int main(void) {
     Vektor v(3, 8);
 
@@ -54,8 +52,5 @@ int main(void) {
     cout << v3[1] << endl;
     cout << v3[2] << endl;
     cout << v3[3] << endl;
-
-
-
 }
 
