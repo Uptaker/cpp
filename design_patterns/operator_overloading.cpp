@@ -69,6 +69,14 @@ class Time {
         return Time(hours, minutes, seconds);
     }
 
+    Time operator+(Time t) {
+        // TODO git history for working version
+        int totalInSeconds = seconds + t.seconds;
+        totalInSeconds+= (minutes + t.minutes) / 60;
+        totalInSeconds+= (hours + t.hours) / 3600;
+        return Time(totalInSeconds / 3600, totalInSeconds % 3600 / 60, totalInSeconds % 3600);
+    }
+
 };
 
 ostream& operator<<(ostream& os, const Time& v) {
@@ -76,7 +84,7 @@ ostream& operator<<(ostream& os, const Time& v) {
 }
 
 int main(void) {
-    Time t1(23, 59, 58);
+    Time t1(22, 59, 58);
     cout << t1 << endl;
 
     t1++;
@@ -84,6 +92,13 @@ int main(void) {
 
     t1++;
     cout << t1 << endl;
+
+    Time t2(23, 59, 59);
+    t2++;
+    cout << t2 << endl;
+
+    Time t3 = t2 + t2;
+    cout << t3 << endl;
 
 
 
