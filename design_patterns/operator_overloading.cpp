@@ -29,6 +29,10 @@ class Vektor {
         return -1;
     }
 
+    int operator*(Vektor v) {
+       return x * v.x + y * v.y;
+    }
+
 };
 
 ostream& operator<<(ostream& os, const Vektor& v) {
@@ -36,9 +40,12 @@ ostream& operator<<(ostream& os, const Vektor& v) {
 }
 
 int main(void) {
-    Vektor v(3, 8);
+    Vektor v(70, 70);
 
-    Vektor v2 = v * 2;
+    // Vektor v2 = v * 4;
+    Vektor v2(3, 0);
+
+    cout << v * v2 << endl;
 
     Vektor v3 = v + v2;
 
@@ -49,6 +56,6 @@ int main(void) {
     cout << v3 << endl;
     cout << v3[1] << endl;
     cout << v3[2] << endl;
-    cout << v3[3] << endl;
+    // cout << v3[3] << endl; // Exception
 }
 
