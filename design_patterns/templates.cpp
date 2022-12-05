@@ -72,6 +72,9 @@ int main(void) {
     double a2 = suurimHoidlast(arvud, 4);
     cout << a2 << endl;
 
+    Time times[4] = {Time(12, 12, 12), Time(11, 11, 11), Time(23, 23, 23), Time(20, 20, 20)};
+    cout << "Biggest: " << suurimHoidlast(times, 4) << endl;
+
     cout << suurim<int>(3, 5) << endl;
     cout << suurim<>(3, 5) << endl;
     cout << suurim(3, 5) << endl;
