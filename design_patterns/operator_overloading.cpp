@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 class Vektor {
@@ -22,6 +23,7 @@ class Vektor {
     Vektor operator+(Vektor v) { return Vektor(x + v.x, y + v.y); }
 
     int operator[](int koht) {
+        assert (koht == 1 || koht == 2); // throws Exception
         if (koht == 1) return x;
         if (koht == 2) return y;
         return -1;
