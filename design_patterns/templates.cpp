@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -14,6 +15,16 @@ T2 suurimHoidlast(T2 *massiiv, int kogus) {
         if (massiiv[i] > v) v = massiiv[i];
     }
     return v;
+}
+
+template <class T2>
+vector<T2> suurimad(T2 *massiiv, int kogus) {
+    T2 abi = suurimHoidlast(massiiv, kogus);
+    vector<T2> hoidla;
+    for (int i = 0; i < kogus; i++) {
+        if (massiiv[i] == abi) hoidla.push_back(massiiv[i]);
+    }
+    return hoidla;
 }
 
 class Time {
@@ -61,6 +72,13 @@ class Time {
         return left > right;
     }
 
+    bool operator==(Time t) {
+        if (seconds != t.seconds) return false;
+        if (minutes != t.minutes) return false;
+        if (hours != t.hours) return false;
+        return true;
+    }
+
 };
 
 ostream& operator<<(ostream& os, const Time& v) {
@@ -68,12 +86,21 @@ ostream& operator<<(ostream& os, const Time& v) {
 }
 
 int main(void) {
-    double arvud[4] = {2, 9, 7, 6};
-    double a2 = suurimHoidlast(arvud, 4);
-    cout << a2 << endl;
+    double arvud[5] = {2, 9, 7, 6, 9};
+    vector<double> a2 = suurimad(arvud, 5);
 
-    Time times[4] = {Time(12, 12, 12), Time(11, 11, 11), Time(23, 23, 23), Time(20, 20, 20)};
+    for (int i = 0; i < a2.size(); i++) {
+        cout << a2[i] << endl;
+    }
+
+    Time times[4] = {Time(12, 12, 12), Time(11, 11, 11), Time(23, 23, 23), Time(23, 23, 23)};
     cout << "Biggest: " << suurimHoidlast(times, 4) << endl;
+
+    vector<Time> biggestTimes = suurimad(times, 4);
+
+    for (int i = 0; i < biggestTimes.size(); i++) {
+        cout << biggestTimes[i] << endl;
+    }
 
     cout << suurim<int>(3, 5) << endl;
     cout << suurim<>(3, 5) << endl;

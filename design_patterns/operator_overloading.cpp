@@ -51,7 +51,6 @@ class Time {
 
     friend ostream& operator<<(ostream& os, const Time& v);
 
-
     Time operator++(int) {
         seconds++;
 
