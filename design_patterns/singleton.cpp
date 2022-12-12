@@ -35,6 +35,4 @@ int main(void) {
 
     Logger* logger2 = Logger::getLogger();
     cout << logger2->getPrev() << endl;
-
-
 }

@@ -33,6 +33,5 @@ int main(void) {
     cout << *start << endl;
 
     start++;
-    cout << *start << endl;
-
+cout << *start << endl;
 }
