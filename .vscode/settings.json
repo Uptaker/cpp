@@ -23,6 +23,8 @@
         "regex": "cpp",
         "valarray": "cpp",
         "ostream": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp"
     }
 }
