@@ -1,10 +1,3 @@
-/*
-
-Allows objects with incompatible interfaces to work together.
-Three main components: a target class, an adaptee class, and an adapter class
-
-*/
-
 #include <iostream>
 #include <string>
 

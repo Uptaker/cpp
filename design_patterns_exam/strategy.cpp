@@ -1,10 +1,3 @@
-/*
-
-Design pattern that enables an algorithm's behavior to be selected at runtime.
-This allows for greater flexibility in the implementation of algorithms and the ability to easily swap one algorithm for another.
-
-*/
-
 #include <iostream>
 
 using namespace std;

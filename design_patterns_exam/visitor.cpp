@@ -1,11 +1,3 @@
-/*
-
-We have a company with Manager and Developer employees.
-We want to give salary raises to all the employees.
-The amount of the raise depends on the employee's job title.
-
-*/
-
 #include <iostream>
 #include <vector>
 

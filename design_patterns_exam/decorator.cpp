@@ -1,10 +1,3 @@
-/*
-
-Decorators allow adding new functionality to an existing object, without modifying the existing object's code
-Involves creating a wrapper for the existing object, and adding the new functionality to the wrapper object
-
-*/
-
 #include <iostream>
 
 using namespace std;

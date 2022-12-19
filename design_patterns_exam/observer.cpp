@@ -1,10 +1,3 @@
-/*
-
-Observer allows objects to be notified of changes in other objects
-The observer pattern involves three main components: a subject, observers, and a registry
-
-*/
-
 #include <iostream>
 #include <vector>
 
@@ -49,7 +42,7 @@ int main() {
   StockExchange exchange;
   ConsoleObserver observer;
 
-  // Add the observer to the exchange's list of observers
+  // add observer
   exchange.addObserver(&observer);
 
   // update stock price
