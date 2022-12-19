@@ -71,8 +71,8 @@ void Developer::accept(Visitor* visitor) {
 }
 
 int main() {
-  Manager markus("Markus", 100000);
-  Developer karl("Karl", 80000);
+  Manager markus("Karl", 100000);
+  Developer karl("Markus", 100000);
   Developer siim("Siim", 75000);
 
   vector<Employee*> employees = {&markus, &karl, &siim};
@@ -83,6 +83,7 @@ int main() {
   }
 
   cout << "New salary of " << markus.getName() << ": " << markus.getSalary() << endl;
+  cout << "New salary of " << karl.getName() << ": " << karl.getSalary() << endl;
 
   return 0;
 }
