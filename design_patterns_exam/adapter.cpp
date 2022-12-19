@@ -3,14 +3,12 @@
 
 using namespace std;
 
-// target class
 class UserAccount {
   public:
     virtual string getUsername() = 0;
     virtual int getBalance() = 0;
 };
 
-// class to be adapted
 class LegacyUserAccount {
   public:
     LegacyUserAccount(string username, int balance) : username_(username), amount_(balance) {}
@@ -22,7 +20,6 @@ class LegacyUserAccount {
     int amount_;
 };
 
-// adapter class
 class UserAccountAdapter : public UserAccount {
   public:
     UserAccountAdapter(string username, int balance) : legacyAccount(username, balance) {}

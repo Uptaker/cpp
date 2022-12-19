@@ -8,7 +8,6 @@ public:
   virtual void onStockPriceChanged(string stock, double price) = 0;
 };
 
-// subject class that maintains a list of observers
 class StockExchange {
 private:
   vector<Observer*> observers;
@@ -30,7 +29,6 @@ public:
   }
 };
 
-// prints updates to the console
 class ConsoleObserver : public Observer {
 public:
   void onStockPriceChanged(string stock, double price) {
@@ -42,10 +40,8 @@ int main() {
   StockExchange exchange;
   ConsoleObserver observer;
 
-  // add observer
   exchange.addObserver(&observer);
 
-  // update stock price
   exchange.setStockPrice("TALLINK", 1234.56);
 
   return 0;
