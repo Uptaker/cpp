@@ -26,31 +26,30 @@ public:
 
 class StockExchangeDecorator : public StockExchange {
 private:
-  StockExchange* decoratedExchange;
-  vector<Observer*> observers;
+  StockExchange* decoratedExchange_;
+  vector<Observer*> observers_;
 
 public:
-  StockExchangeDecorator(StockExchange* decoratedExchange) : decoratedExchange(decoratedExchange) {}
+  StockExchangeDecorator(StockExchange* decoratedExchange = new StockExchange()) : decoratedExchange_(decoratedExchange) {}
 
   void setStockPrice(string stock, double price) {
-    decoratedExchange->setStockPrice(stock, price);
+    decoratedExchange_->setStockPrice(stock, price);
 
-    for (Observer* observer : this->observers) {
+    for (Observer* observer : this->observers_) {
       observer->onStockPriceChanged(stock, price);
     }
   }
 
   void addObserver(Observer* observer) {
-    this->observers.push_back(observer);
+    this->observers_.push_back(observer);
   }
 };
 
 
 int main() {
-  StockExchangeDecorator exchange = new StockExchangeDecorator(new StockExchange());
+  StockExchangeDecorator exchange = new StockExchangeDecorator();
   ConsoleObserver observer;
 
- 
   exchange.addObserver(&observer);
 
   exchange.setStockPrice("TALLINK", 1234.56);

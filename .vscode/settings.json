@@ -25,6 +25,11 @@
         "ostream": "cpp",
         "chrono": "cpp",
         "*.tcc": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "any": "cpp",
+        "coroutine": "cpp",
+        "memory": "cpp",
+        "future": "cpp",
+        "source_location": "cpp"
     }
 }
