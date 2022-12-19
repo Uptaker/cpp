@@ -71,19 +71,19 @@ void Developer::accept(Visitor* visitor) {
 }
 
 int main() {
-  Manager markus("Karl", 100000);
-  Developer karl("Markus", 100000);
+  Manager karl("Karl", 100000);
+  Developer markus("Markus", 100000);
   Developer siim("Siim", 75000);
 
-  vector<Employee*> employees = {&markus, &karl, &siim};
+  vector<Employee*> employees = {&karl, &markus, &siim};
 
   SalaryRaiser visitor;
   for (auto employee : employees) {
     employee->accept(&visitor);
   }
 
-  cout << "New salary of " << markus.getName() << ": " << markus.getSalary() << endl;
   cout << "New salary of " << karl.getName() << ": " << karl.getSalary() << endl;
+  cout << "New salary of " << markus.getName() << ": " << markus.getSalary() << endl;
 
   return 0;
 }
