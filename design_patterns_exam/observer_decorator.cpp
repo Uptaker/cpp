@@ -3,6 +3,11 @@
 
 using namespace std;
 
+class Observer {
+public:
+  virtual void onStockPriceChanged(string stock, double price) = 0;
+};
+
 class StockExchange {
 public:
   void setStockPrice(string stock, double price) {
@@ -10,11 +15,6 @@ public:
     // ....
     cout << "StockExchange: Stock updated" << endl;
   }
-};
-
-class Observer {
-public:
-  virtual void onStockPriceChanged(string stock, double price) = 0;
 };
 
 class ConsoleObserver : public Observer {
