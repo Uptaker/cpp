@@ -30,7 +30,7 @@ private:
   vector<Observer*> observers_;
 
 public:
-  StockExchangeDecorator(StockExchange* decoratedExchange = new StockExchange()) : decoratedExchange_(decoratedExchange) {}
+  StockExchangeDecorator(StockExchange* exchange = new StockExchange()) : decoratedExchange_(exchange) {}
 
   void setStockPrice(string stock, double price) {
     decoratedExchange_->setStockPrice(stock, price);
